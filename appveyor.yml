@@ -205,8 +205,6 @@ install:
   - cmd: set MSVCABR  = %MSVCABR%
   - cmd: set platform  = %platform%
   - cmd: set PYTHONPATHOMNI = %PYTHONPATHOMNI%
-  #fix non existing files for vc15
-  - cmd: if "%APPVEYOR_BUILD_WORKER_IMAGE%" EQ "Visual Studio 2017"
   # Create 64 versions
   - cmd: copy c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_14.mk c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk
   - ps: (get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk) | foreach-object {$_ -replace "_vc14", "_vc15"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk
