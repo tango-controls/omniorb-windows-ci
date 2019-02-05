@@ -1,21 +1,43 @@
 version: 1.0.{build}
 
-image: Visual Studio 2015
-
 environment:
   matrix:
-    - platform: win32
-      ARCH: win32-msvc14
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      platform: x64
+      ARCH: x64-msvc15
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 14 2015"
-      MSVCVERSION: "v140"
-      MSVCYEAR: "vs2015"
-      MSVCABR: "14"
-      VC_VER: 14.0
-      PYTHONPATH: c:\Python36\
-      PYTHONPATHOMNI: "/cygdrive/c/Python36/python"
-      PYVER: "py36"
-    - platform: x64
+      CMAKE_GENERATOR: "Visual Studio 15 2017 Win64"
+      MSVCVERSION: v141
+      MSVCYEAR: "vs2017"
+      MSVCABR: "15"
+      VC_VER: 15.0
+      PYTHONPATH: c:\Python37-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python37-x64/python"
+      BOOST_ROOT: C:\Libraries\boost_1_63_0
+      ZMQ_BASE: C:\projects\libzmq
+      IDL_BASE: C:\projects\tangoidl
+      IDL_BIN: C:\Program Files\tangoidl
+      OMNI_BASE: C:\projects\omniORB-4.2.1
+      PYVER: "py37"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      platform: win32
+      ARCH: win32-msvc15
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 15 2017"
+      MSVCVERSION: v141
+      MSVCYEAR: "vs2017"
+      MSVCABR: "15"
+      VC_VER: 15.0
+      PYTHONPATH: c:\Python37\
+      PYTHONPATHOMNI: "/cygdrive/c/Python37/python"
+      BOOST_ROOT: C:\Libraries\boost_1_63_0
+      ZMQ_BASE: C:\projects\libzmq
+      IDL_BASE: C:\projects\tangoidl
+      IDL_BIN: C:\Program Files\tangoidl
+      OMNI_BASE: C:\projects\omniORB-4.2.1
+      PYVER: "py37"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: x64
       ARCH: x64-msvc14
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
@@ -26,18 +48,8 @@ environment:
       PYTHONPATH: c:\Python36-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python36-x64/python"
       PYVER: "py36"
-    - platform: x64
-      ARCH: x64-msvc14
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
-      MSVCVERSION: "v140"
-      MSVCYEAR: "vs2015"
-      MSVCABR: "14"
-      VC_VER: 14.0
-      PYTHONPATH: c:\Python35-x64\
-      PYTHONPATHOMNI: "/cygdrive/c/Python35-x64/python"
-      PYVER: "py35"
-    - platform: x64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: x64
       ARCH: x64-msvc12
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 12 2013 Win64"
@@ -48,7 +60,8 @@ environment:
       PYTHONPATH: c:\Python33-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
       PYVER: "py33"
-    - platform: x64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: x64
       ARCH: x64-msvc10
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 10 2010 Win64"
@@ -59,7 +72,8 @@ environment:
       PYTHONPATH: c:\Python33-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
       PYVER: "py33"
-    - platform: x64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: x64
       ARCH: x64-msvc9
       configuration: Release
       CMAKE_GENERATOR: Visual Studio 9 2008 Win64
@@ -70,7 +84,8 @@ environment:
       PYTHONPATH: c:\Python27-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python27-x64/python"
       PYVER: "py27"
-    - platform: win32
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: win32
       ARCH: win32-msvc9
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 9 2008"
@@ -81,7 +96,8 @@ environment:
       PYTHONPATH: c:\Python27\
       PYTHONPATHOMNI: "/cygdrive/c/Python27/python"
       PYVER: "py27"
-    - platform: win32
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: win32
       ARCH: win32-msvc10
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 10 2010"
@@ -92,7 +108,8 @@ environment:
       PYTHONPATH: c:\Python33\
       PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
       PYVER: "py33"
-    - platform: win32
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: win32
       ARCH: win32-msvc12
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 12 2013"
@@ -103,7 +120,8 @@ environment:
       PYTHONPATH: c:\Python33\
       PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
       PYVER: "py33"
-    - platform: win32
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      platform: win32
       ARCH: win32-msvc14
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 14 2015"
@@ -111,12 +129,12 @@ environment:
       MSVCYEAR: "vs2015"
       MSVCABR: "14"
       VC_VER: 14.0
-      PYTHONPATH: c:\Python35\
-      PYTHONPATHOMNI: "/cygdrive/c/Python35/python"
-      PYVER: "py35"
+      PYTHONPATH: c:\Python36\
+      PYTHONPATHOMNI: "/cygdrive/c/Python36/python"
+      PYVER: "py36"
 init:
   # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
-  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  - cmd: if "%APPVEYOR_BUILD_WORKER_IMAGE%" NEQ "Visual Studio 2017" del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
   #RDP from start
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # OmniOrb
@@ -152,6 +170,8 @@ install:
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  - cmd: if %ARCH%==win32-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%Platform%'"
   # OmniOrb
@@ -160,17 +180,28 @@ install:
   - cmd: set platform  = %platform%
   - cmd: set PYTHONPATHOMNI = %PYTHONPATHOMNI%
   # Create 64 versions
+  - cmd: copy c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_14.mk c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk
+  - ps: (get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk) | foreach-object {$_ -replace "_vc14", "_vc15"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk
   - cmd: copy c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_%MSVCABR%.mk c:\projects\omniORB-4.2.1\mk\platforms\x86_x64_vs_%MSVCABR%.mk
   # Add 64 links 
   - ps: (get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_x64_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "-DEBUG", "-DEBUG -MACHINE:X64"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_x64_vs_${env:MSVCABR}.mk
   # Editing OmniOrb config
   - cmd: cd "C:\projects\omniORB-4.2.1\src"
-  - ps: (get-content c:\projects\omniORB-4.2.1\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_${env:MSVCABR}", "platform = x86_${env:platform}_vs_${env:MSVCABR}"} | set-content c:\projects\omniORB-4.2.1\config\config.mk
-  - ps: (get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python26/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_$env:MSVCABR.mk
-  - cmd: type "c:\projects\omniORB-4.2.1\mk\platforms\x86_%platform%_vs_%MSVCABR%.mk"
+  - ps: if (${env:APPVEYOR_BUILD_WORKER_IMAGE} -Match "Visual Studio 2015") {(get-content c:\projects\omniORB-4.2.1\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_${env:MSVCABR}", "platform = x86_${env:platform}_vs_${env:MSVCABR}"} | set-content c:\projects\omniORB-4.2.1\config\config.mk}
+  - ps: if (${env:APPVEYOR_BUILD_WORKER_IMAGE} -Match "Visual Studio 2015") {(get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python26/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_$env:MSVCABR.mk}
+  
+  - ps: if (${env:ARCH} -Match "win32-msvc15") {(get-content c:\projects\omniORB-4.2.1\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_14", "platform = x86_win32_vs_15"} | set-content c:\projects\omniORB-4.2.1\config\config.mk }
+  - ps: if (${env:ARCH} -Match "win32-msvc15") {(get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python26/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_$env:MSVCABR.mk }
+
+  - ps: if (${env:ARCH} -Match "x64-msvc15") {(get-content c:\projects\omniORB-4.2.1\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_14", "platform = x86_${env:platform}_vs_15"} | set-content c:\projects\omniORB-4.2.1\config\config.mk }
+  - ps: if (${env:ARCH} -Match "x64-msvc15") {(get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python26/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_$env:MSVCABR.mk }
+
+  #- cmd: type "c:\projects\omniORB-4.2.1\mk\platforms\x86_%platform%_vs_%MSVCABR%.mk"
   #- cmd: set path=%path%;c:\cygwin64\bin
   - cmd: if %ARCH%==win32-msvc14 set path=%path%;%PYTHONPATH%
   - cmd: if %ARCH%==x64-msvc14 set path=%path%;%PYTHONPATH%
+  - cmd: if %ARCH%==win32-msvc15 set path=%path%;%PYTHONPATH%
+  - cmd: if %ARCH%==x64-msvc15 set path=%path%;%PYTHONPATH%
   #- cmd: if %ARCH%==x64-msvc14 set path=%path%;c:\cygwin64\bin;%PYTHONPATH%
   #- cmd: set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path% 
 
