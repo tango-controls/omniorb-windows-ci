@@ -2,19 +2,19 @@ version: 1.0.{build}
 
 environment:
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       ARCH: x64-msvc15
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 15 2017 Win64"
-      MSVCABR: "15"
+      CMAKE_GENERATOR: "Visual Studio 16 2019 Win64"
+      MSVCABR: "16"
       PYTHONPATH: c:\Python39-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python39-x64/python"
       PYVER: "py39"
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       ARCH: win32-msvc15
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 15 2017"
-      MSVCABR: "15"
+      CMAKE_GENERATOR: "Visual Studio 16 2019"
+      MSVCABR: "16"
       PYTHONPATH: c:\Python39\
       PYTHONPATHOMNI: "/cygdrive/c/Python39/python"
       PYVER: "py39"
@@ -54,7 +54,9 @@ environment:
 init:
   # Uncomment next line, to allow RDP access from start
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
+  - cmd: echo "List projects"
+  - cmd: dir "C:\projects\"
+  - cmd: cd "C:\"
   # OmniOrb
   - cmd: cd "C:\projects\"
   - appveyor DownloadFile https://downloads.sourceforge.net/project/omniorb/omniORB/omniORB-4.2.5/omniORB-4.2.5.tar.bz2
@@ -77,8 +79,11 @@ install:
   - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
-  - cmd: if %ARCH%==win32-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
-  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - cmd: if %ARCH%==win32-msvc15 if %MSVCABR%==15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - cmd: if %ARCH%==x64-msvc15 if %MSVCABR%==15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - cmd: if %ARCH%==win32-msvc15 if %MSVCABR%==16 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - cmd: if %ARCH%==x64-msvc15 if %MSVCABR%==16 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%platform%' (set by vcvars batch file)"
   # OmniOrb
