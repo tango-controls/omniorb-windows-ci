@@ -89,6 +89,8 @@ install:
   - ps: (get-content c:\projects\omniORB-4.2.5\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python36/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.5\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk
 
 build_script:
+  - cmd: dir "C:\projects"
+  - cmd: dir "C:\"
   - cmd: cd "C:\projects\omniORB-4.2.5\src"
   - cmd: make export
 after_build:
