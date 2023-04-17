@@ -34,38 +34,38 @@ environment:
       PYTHONPATH: c:\Python39\
       PYTHONPATHOMNI: "/cygdrive/c/Python39/python"
       PYVER: "py39"
-    # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    #   ARCH: x64-msvc15
-    #   configuration: Release
-    #   CMAKE_GENERATOR: "Visual Studio 15 2017 Win64"
-    #   MSVCABR: "15"
-    #   PYTHONPATH: c:\Python37-x64\
-    #   PYTHONPATHOMNI: "/cygdrive/c/Python37-x64/python"
-    #   PYVER: "py37"
-    # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    #   ARCH: win32-msvc15
-    #   configuration: Release
-    #   CMAKE_GENERATOR: "Visual Studio 15 2017"
-    #   MSVCABR: "15"
-    #   PYTHONPATH: c:\Python37\
-    #   PYTHONPATHOMNI: "/cygdrive/c/Python37/python"
-    #   PYVER: "py37"
-    # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    #   ARCH: x64-msvc14
-    #   configuration: Release
-    #   CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
-    #   MSVCABR: "14"
-    #   PYTHONPATH: c:\Python36-x64\
-    #   PYTHONPATHOMNI: "/cygdrive/c/Python36-x64/python"
-    #   PYVER: "py36"
-    # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-    #   ARCH: win32-msvc14
-    #   configuration: Release
-    #   CMAKE_GENERATOR: "Visual Studio 14 2015"
-    #   MSVCABR: "14"
-    #   PYTHONPATH: c:\Python36\
-    #   PYTHONPATHOMNI: "/cygdrive/c/Python36/python"
-    #   PYVER: "py36"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      ARCH: x64-msvc15
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 15 2017 Win64"
+      MSVCABR: "15"
+      PYTHONPATH: c:\Python37-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python37-x64/python"
+      PYVER: "py37"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      ARCH: win32-msvc15
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 15 2017"
+      MSVCABR: "15"
+      PYTHONPATH: c:\Python37\
+      PYTHONPATHOMNI: "/cygdrive/c/Python37/python"
+      PYVER: "py37"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ARCH: x64-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
+      MSVCABR: "14"
+      PYTHONPATH: c:\Python36-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python36-x64/python"
+      PYVER: "py36"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      ARCH: win32-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015"
+      MSVCABR: "14"
+      PYTHONPATH: c:\Python36\
+      PYTHONPATHOMNI: "/cygdrive/c/Python36/python"
+      PYVER: "py36"
   
 init:
   # Uncomment next line, to allow RDP access from start
