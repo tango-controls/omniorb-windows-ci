@@ -1,36 +1,37 @@
 version: 1.0.{build}
 
 environment:
+  PTHREAD_VERSION: "2.9.2"
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      ARCH: x64-msvc15
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      ARCH: x64-msvc17
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 16 2019 Win64"
-      MSVCABR: "16"
+      CMAKE_GENERATOR: "Visual Studio 17 2022 Win64"
+      MSVCABR: "17"
       PYTHONPATH: c:\Python310-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python310-x64/python"
       PYVER: "py310"
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      ARCH: win32-msvc15
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      ARCH: win32-msvc17
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 16 2019"
-      MSVCABR: "16"
+      CMAKE_GENERATOR: "Visual Studio 17 2022"
+      MSVCABR: "17"
       PYTHONPATH: c:\Python310\
       PYTHONPATHOMNI: "/cygdrive/c/Python310/python"
       PYVER: "py310"
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      ARCH: x64-msvc15
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      ARCH: x64-msvc17
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 16 2019 Win64"
-      MSVCABR: "16"
+      CMAKE_GENERATOR: "Visual Studio 17 2022 Win64"
+      MSVCABR: "17"
       PYTHONPATH: c:\Python39-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python39-x64/python"
       PYVER: "py39"
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      ARCH: win32-msvc15
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+      ARCH: win32-msvc17
       configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 16 2019"
-      MSVCABR: "16"
+      CMAKE_GENERATOR: "Visual Studio 17 2022"
+      MSVCABR: "17"
       PYTHONPATH: c:\Python39\
       PYTHONPATHOMNI: "/cygdrive/c/Python39/python"
       PYVER: "py39"
@@ -83,8 +84,8 @@ init:
   - cmd: cd "C:\projects\"
   - cmd: md pthreads-win32
   - cmd: cd "C:\projects\"
-  - appveyor DownloadFile https://github.com/tango-controls/Pthread_WIN32/releases/download/2.9.1/pthreads-win32-2.9.1_%ARCH%.zip
-  - cmd: 7z -y x pthreads-win32-2.9.1_%ARCH%.zip -oC:\projects\pthreads-win32\
+  - appveyor DownloadFile https://github.com/mnabywan/Pthread_WIN32/releases/download/%PTHREAD_VERSION%/pthreads-win32-%PTHREAD_VERSION%_%ARCH%.zip
+  - cmd: 7z -y x pthreads-win32-%PTHREAD_VERSION%_%ARCH%.zip -oC:\projects\pthreads-win32\
 
   # Finally, return to project folder before repo is cloned
   - cmd: cd "C:\projects\omniorb-windows-ci"
@@ -95,10 +96,10 @@ install:
   - cmd: set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
-  - cmd: if %ARCH%==win32-msvc15 if %MSVCABR%==15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
-  - cmd: if %ARCH%==x64-msvc15 if %MSVCABR%==15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-  - cmd: if %ARCH%==win32-msvc15 if %MSVCABR%==16 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
-  - cmd: if %ARCH%==x64-msvc15 if %MSVCABR%==16 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - cmd: if %ARCH%==win32-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - cmd: if %ARCH%==win32-msvc17 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - cmd: if %ARCH%==x64-msvc17 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%platform%' (set by vcvars batch file)"
