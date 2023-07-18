@@ -1,6 +1,9 @@
 version: 1.0.{build}
 
 environment:
+  # Common variables
+  OMNIORB_VERSION: 4.3.0
+
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       ARCH: x64-msvc15
@@ -41,9 +44,9 @@ init:
 
   # OmniOrb
   - cmd: cd "C:\projects\"
-  - appveyor DownloadFile https://downloads.sourceforge.net/project/omniorb/omniORB/omniORB-4.2.5/omniORB-4.2.5.tar.bz2
-  - cmd: 7z x omniORB-4.2.5.tar.bz2
-  - cmd: 7z x omniORB-4.2.5.tar
+  - appveyor DownloadFile https://downloads.sourceforge.net/project/omniorb/omniORB/omniORB-%OMNIORB_VERSION%/omniORB-%OMNIORB_VERSION%.tar.bz2
+  - cmd: 7z x omniORB-%OMNIORB_VERSION%.tar.bz2
+  - cmd: 7z x omniORB-%OMNIORB_VERSION%.tar
 
   # Pthread-Win32
   - cmd: cd "C:\projects\"
@@ -67,24 +70,24 @@ install:
   - cmd: echo "Platform='%platform%' (set by vcvars batch file)"
   # OmniOrb
   # For x64 platform, change linker option (the "win32" in the file name doesn't matter)
-  - ps: if (${env:platform} -Match "x64") {(get-content c:\projects\omniORB-4.2.5\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "-DEBUG", "-DEBUG -MACHINE:X64"} | set-content c:\projects\omniORB-4.2.5\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk}
+  - ps: if (${env:platform} -Match "x64") {(get-content c:\projects\omniORB-${env:OMNIORB_VERSION}\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "-DEBUG", "-DEBUG -MACHINE:X64"} | set-content c:\projects\omniORB-${env:OMNIORB_VERSION}\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk}
   # Edit config to enable the right build, with right Python version
-  - ps: (get-content c:\projects\omniORB-4.2.5\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_${env:MSVCABR}", "platform = x86_win32_vs_${env:MSVCABR}"} | set-content c:\projects\omniORB-4.2.5\config\config.mk
-  - ps: (get-content c:\projects\omniORB-4.2.5\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python36/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.5\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk
+  - ps: (get-content c:\projects\omniORB-${env:OMNIORB_VERSION}\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_${env:MSVCABR}", "platform = x86_win32_vs_${env:MSVCABR}"} | set-content c:\projects\omniORB-${env:OMNIORB_VERSION}\config\config.mk
+  - ps: (get-content c:\projects\omniORB-${env:OMNIORB_VERSION}\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python310/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-${env:OMNIORB_VERSION}\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk
 
 build_script:
-  - cmd: cd "C:\projects\omniORB-4.2.5\src"
+  - cmd: cd "C:\projects\omniORB-%OMNIORB_VERSION%\src"
   - cmd: make export
 after_build:
   - cmd: cd "C:\projects\omniorb-windows-ci"
   # Generating zip
-  - cmd: 7z a omniorb-4.2.5_%ARCH%_%PYVER%.zip c:\projects\omniORB-4.2.5\bin\
-  - cmd: 7z a omniorb-4.2.5_%ARCH%_%PYVER%.zip c:\projects\omniORB-4.2.5\lib\
-  - cmd: 7z a omniorb-4.2.5_%ARCH%_%PYVER%.zip c:\projects\omniORB-4.2.5\include\
+  - cmd: 7z a omniorb-%OMNIORB_VERSION%_%ARCH%_%PYVER%.zip c:\projects\omniORB-%OMNIORB_VERSION%\bin\
+  - cmd: 7z a omniorb-%OMNIORB_VERSION%_%ARCH%_%PYVER%.zip c:\projects\omniORB-%OMNIORB_VERSION%\lib\
+  - cmd: 7z a omniorb-%OMNIORB_VERSION%_%ARCH%_%PYVER%.zip c:\projects\omniORB-%OMNIORB_VERSION%\include\
 
 on_failure:
 #  RDP for failure
- - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 on_finish:
   #RDP for finish
