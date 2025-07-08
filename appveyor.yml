@@ -2,7 +2,7 @@ version: 1.0.{build}
 
 environment:
   # Common variables
-  OMNIORB_VERSION: 4.3.0
+  OMNIORB_VERSION: 4.3.3
 
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -37,7 +37,7 @@ environment:
       PYTHONPATH: c:\Python36\
       PYTHONPATHOMNI: "/cygdrive/c/Python36/python"
       PYVER: "py36"
-  
+
 init:
   # Uncomment next line, to allow RDP access from start
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -57,7 +57,7 @@ init:
 
   # Finally, return to project folder before repo is cloned
   - cmd: cd "C:\projects\omniorb-windows-ci"
-  
+
 install:
   - cmd: set PYTHONPATH=%PYTHONPATH%
   - cmd: set path=%PATH%;c:\cygwin64\bin;%PYTHONPATH%
