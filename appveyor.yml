@@ -2,7 +2,7 @@ version: 1.0.{build}
 
 environment:
   # Common variables
-  OMNIORB_VERSION: 4.3.3
+  OMNIORB_VERSION: 4.3.4
 
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
