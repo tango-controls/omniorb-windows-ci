@@ -206,6 +206,10 @@ install:
   #- cmd: set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
 
 build_script:
+  # apply patches
+  - cmd: cd "C:\projects\omniORB-4.2.1"
+  - cmd: git apply --verbose --ignore-whitespace -p1 C:\projects\omniorb-windows-ci\patches\invalid-sizes-fix-backport.patch
+  - cmd: cd "C:\projects\omniORB-4.2.1\src"
   - cmd: make export
 after_build:
   - cmd: cd "C:\projects\omniorb-windows-ci"
