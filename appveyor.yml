@@ -155,7 +155,7 @@ init:
   #- cmd: if %ARCH%==x64-msvc9 call C:\projects\vs2008_patch\setup_x64.bat
   - cmd: if %ARCH%==x32-msvc9 call C:\projects\vs2008_patch\setup_x86.bat
   - cmd: cd "C:\projects\omniorb-windows-ci"
-  
+
 install:
   - cmd: set PYTHONPATH=%PYTHONPATH%
   - cmd: set path=%PATH%;c:\cygwin64\bin;%PYTHONPATH%
@@ -183,13 +183,13 @@ install:
   - cmd: copy c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_14.mk c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk
   - ps: (get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk) | foreach-object {$_ -replace "_vc14", "_vc15"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_15.mk
   - cmd: copy c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_%MSVCABR%.mk c:\projects\omniORB-4.2.1\mk\platforms\x86_x64_vs_%MSVCABR%.mk
-  # Add 64 links 
+  # Add 64 links
   - ps: (get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_x64_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "-DEBUG", "-DEBUG -MACHINE:X64"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_x64_vs_${env:MSVCABR}.mk
   # Editing OmniOrb config
   - cmd: cd "C:\projects\omniORB-4.2.1\src"
   - ps: if (${env:APPVEYOR_BUILD_WORKER_IMAGE} -Match "Visual Studio 2015") {(get-content c:\projects\omniORB-4.2.1\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_${env:MSVCABR}", "platform = x86_${env:platform}_vs_${env:MSVCABR}"} | set-content c:\projects\omniORB-4.2.1\config\config.mk}
   - ps: if (${env:APPVEYOR_BUILD_WORKER_IMAGE} -Match "Visual Studio 2015") {(get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python26/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_${env:platform}_vs_$env:MSVCABR.mk}
-  
+
   - ps: if (${env:ARCH} -Match "win32-msvc15") {(get-content c:\projects\omniORB-4.2.1\config\config.mk) | foreach-object {$_ -replace "\#platform = x86_win32_vs_14", "platform = x86_win32_vs_15"} | set-content c:\projects\omniORB-4.2.1\config\config.mk }
   - ps: if (${env:ARCH} -Match "win32-msvc15") {(get-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_${env:MSVCABR}.mk) | foreach-object {$_ -replace "\#PYTHON = /cygdrive/c/Python26/python", "PYTHON = ${env:PYTHONPATHOMNI}"} | set-content c:\projects\omniORB-4.2.1\mk\platforms\x86_win32_vs_$env:MSVCABR.mk }
 
@@ -203,7 +203,7 @@ install:
   - cmd: if %ARCH%==win32-msvc15 set path=%path%;%PYTHONPATH%
   - cmd: if %ARCH%==x64-msvc15 set path=%path%;%PYTHONPATH%
   #- cmd: if %ARCH%==x64-msvc14 set path=%path%;c:\cygwin64\bin;%PYTHONPATH%
-  #- cmd: set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path% 
+  #- cmd: set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
 
 build_script:
   - cmd: make export
@@ -220,4 +220,4 @@ on_finish:
 
 artifacts:
   - path: ./*.zip
- 
+
