@@ -214,6 +214,10 @@ after_build:
   - cmd: 7z a omniorb-4.2.1_%ARCH%_%PYVER%.zip c:\projects\omniORB-4.2.1\lib\
   - cmd: 7z a omniorb-4.2.1_%ARCH%_%PYVER%.zip c:\projects\omniORB-4.2.1\include\
 
+on_failure:
+#  RDP for failure
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 on_finish:
   #RDP for finish
   #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
